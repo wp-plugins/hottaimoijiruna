@@ -9,7 +9,7 @@ Hottaimoijiruna is a continuously updating AJAX powered clock for your site, wit
 1. Upload hottaimoijiruna.php to your plugins folder, usually `wp-content/plugins/`
 2. Activate the plugin on the plugin screen.
 3. Use the Wordpress plugins editor and set "HOURS_FROM_GMT" appropriately for your timezone.
-4. In every template that you wish for the clock to appear, give one of your elements an 'id' attribute of "Jikan".  EG: <div id="jikan">Mr Wolf</div>.  The default text is what will appear if your reader doesn't have Javascript.
+4. In every template that you wish for the clock to appear, call the function hottaimoijiruna().
 
 
 == Frequently Asked Questions ==
@@ -24,7 +24,7 @@ Every minute hottaimoijiruna makes a call to the server and gets the current tim
 
 = It doesn't work! =
 
-Yes it does!  See <a href="http://jamietalbot.com/about/">here</a>.  Have you activated the plugin?  Are you using Wordpress 2.0 or else have SACK installed?  Have you given an element in your template an id="jikan" attribute?  Have you got Javascript enabled?
+Yes it does!  See <a href="http://jamietalbot.com/about/">here</a>.  Have you activated the plugin?  Are you using Wordpress 2.0 or else have SACK installed?  Have you called <?php hottaimoijiruna(); ?>  Have you got Javascript enabled?
 
 = Will it work with Wordpress 1.x? =
 
@@ -40,7 +40,7 @@ Nope.  It should degrade nicely, and say "clock disabled".
 
 = Will this run on every Wordpress page and post? =
 
-Yes.  But if the post or page doesn't have an id="jikan" element defined, it will quit before the first call.
+Nope, only on pages where you call hottaimoijiruna(), and it will quit before the first call if there is a problem. 
 
 = Do you have an example? =
 
@@ -48,7 +48,7 @@ Have a look at my <a href="http://jamietalbot.com/about/">About Page</a>.
 
 = What's with the stupid name? =
 
-Hottaimoijiruna is Japanese.  It is what some Japanese people think you are saying when you say "What time is is now?"  Try saying it fast and you'll understand.
+Hottaimoijiruna is Japanese and it roughly means, "Don't touch the potato that was dug up".  It is what some Japanese people think you are saying when you say "What time is is now?"  Try saying it fast and you'll understand.
 
 = So it's kind of a joke? =
 
