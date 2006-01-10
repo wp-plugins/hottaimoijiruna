@@ -3,7 +3,7 @@
 Plugin Name: Hottaimoijiruna
 Plugin URI: http://jamietalbot.com/wp-hacks/hottaimoijiruna/
 Description: AJAX powered clock for WordPress.<br/>Licensed under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>, Copyright &copy; 2005 Jamie Talbot.
-Version: 0.1
+Version: 0.2
 Author: Jamie Talbot
 Author URI: http://jamietalbot.com/
 */ 
@@ -37,29 +37,25 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 define ("HOTTA_DIR", "wp-content/plugins/");
 define ("HOURS_FROM_GMT", 9); // Set this to your timezone
+define ("HOTTA_TAG", "span"); // The tag you want the clock to appear in.
 
-function hottaimoijiruna() 
+// Any extra attributes for the display tag.  Make sure there is a space at the start.
+define ("HOTTA_ATTRIBUTES", ' style="display: block; text-align: center;"');
+
+function hottaimoijiruna_server() 
 {
 	$zone = 3600 * HOURS_FROM_GMT;
 	$ima = gmdate('l, jS F', time() + $zone) . "<br />" . gmdate('g', time() + $zone) . "<span class=\"blink\">:</span>" .  gmdate('i a', time() + $zone);
 	return $ima;
 }
 
-function hotta_insert_js_call()
-{
-?>
-<script type="text/javascript" src="wp-includes/js/tw-sack.js"></script>
-<script type="text/javascript">
-imananji();
-</script>
-<?php
-}
-
-function hotta_place_js_code()
+function hottaimoijiruna()
 {
 ?>
 <!-- Hottaimoijiruna - AJAX powered clock for WordPress. -->
-<!-- Copyright (c) 2005 Jamie Talbot -->
+<!-- Copyright (c) 2005-2006 Jamie Talbot -->
+<<?php echo HOTTA_TAG ?> id="jikan"<?php echo HOTTA_ATTRIBUTES ?>></<?php echo HOTTA_TAG ?>>
+<script type="text/javascript" src="<?php echo get_settings('home') ?>/wp-includes/js/tw-sack.js"></script>
 <script type="text/javascript">
 //<![CDATA[
 function imananji() 
@@ -90,7 +86,7 @@ function hottaimoijiruna()
   hotta.runAJAX('hotta=true');
   return true;
 }
-
+imananji();
 //]]>
 </script>
 <?php 
@@ -98,11 +94,8 @@ function hottaimoijiruna()
 
 if (isset($_POST['hotta']) && (true ==$_POST['hotta']))
 {
-	echo hottaimoijiruna();
+	echo hottaimoijiruna_server();
 	exit;
 }
-
-add_action('wp_head', 'hotta_place_js_code');
-add_action('wp_footer', 'hotta_insert_js_call');
 
 ?>
