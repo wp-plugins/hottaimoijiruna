@@ -3,7 +3,7 @@
 Plugin Name: Hottaimoijiruna
 Plugin URI: http://jamietalbot.com/wp-hacks/hottaimoijiruna/
 Description: AJAX powered clock for WordPress.<br/>Licensed under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>, Copyright &copy; 2005 Jamie Talbot.
-Version: 0.2
+Version: 0.3
 Author: Jamie Talbot
 Author URI: http://jamietalbot.com/
 */ 
@@ -58,11 +58,12 @@ function hottaimoijiruna()
 <script type="text/javascript" src="<?php echo get_settings('home') ?>/wp-includes/js/tw-sack.js"></script>
 <script type="text/javascript">
 //<![CDATA[
-function imananji() 
+
+function imananji(milliseconds) 
 {
 	var timerID = 0;
 	if(timerID) clearTimeout(timerID);
-	if (hottaimoijiruna()) timerID = setTimeout("imananji()", 60000);
+	if (hottaimoijiruna()) timerID = setTimeout("imananji(60000)", milliseconds);
 }
 
 function hottaimoijiruna()
@@ -86,7 +87,8 @@ function hottaimoijiruna()
   hotta.runAJAX('hotta=true');
   return true;
 }
-imananji();
+<?php $milliseconds = 1000 * (60 - gmdate('s', time() + (3600 * HOURS_FROM_GMT))); ?>
+imananji(<?php echo $milliseconds ?>);
 //]]>
 </script>
 <?php 
